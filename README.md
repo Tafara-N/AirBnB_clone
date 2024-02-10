@@ -1,145 +1,216 @@
-# Background Context
+# AirBnB_clone Project
 
-![HBNB](https://s3.amazonaws.com/alx-intranet.hbtn.io/uploads/medias/2018/6/65f4a1dd9c51265f49d0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUSBVO6H7D%2F20240210%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240210T071925Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=ee17a6859b4e3aaa478c86a54650d72b8c02431e4673cf970135c0afaea97c5e "AirBnB Clone")
+<div align="center">
 
-## Welcome to the AirBnB clone project
+  <h1>HBNB - The Console <img src="https://i.imgur.com/elr4ah9.png" width=55 align=center> </h1>
+</div>
 
-**First step: Write a command interpreter to manage your AirBnB objects.**
+<img align="center" src="https://i.imgur.com/MQq3ABc.png" alt="Logo">
 
-This is the first step towards building your first full web application: the AirBnB clone. This first step is very important because you will use what you build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
+## Description
 
-Each task is linked and will help you to:
+This repository contains version 3 of a project to build a clone of the AirBnB website. This version implements a console and an API to manage program data. Console commands and the API allow the user to create, update, and destroy objects, as well as manage file storage, using a JSON serialization system or using MySQL as the database, Flask was also an implementation in this version.
 
-- put in place a parent class (called BaseModel) to take care of the initialization, serialization and deserialization of your future instances
+<img src="https://i.imgur.com/fcl4PRY.png" alt="Structure">
 
-- create a simple flow of serialization/deserialization: Instance <-> Dictionary <-> JSON string <-> file
+### Functionalities of this command interpreter
 
-- create all classes used for AirBnB (User, State, City, Place…) that inherit from BaseModel
+* Create a new object (ex: a new User or a new Place)
+* Retrieve an object from a file, a database etc...
+* Do operations on objects (count, compute stats, etc...)
+* Update attributes of an object
+* Destroy an object
 
-- create the first abstracted storage engine of the project: File storage.
+## Table of Content
 
-- create all unittests to validate all our classes and storage engine
+* [Environment](#environment)
+* [Installation](#installation)
+* [File Descriptions](#file-descriptions)
+* [Usage](#usage)
+* [Examples of use](#examples-of-use)
+* [API](#api)
+* [Bugs](#bugs)
+* [Authors](#authors)
+* [License](#license)
 
-## What’s a command interpreter?
+## Environment
 
-Do you remember the Shell? It’s exactly the same but limited to a specific use-case. In our case, we want to be able to manage the objects of our project:
+This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3)
 
-- Create a new object (ex: a new User or a new Place)
+## Installation
 
-- Retrieve an object from a file, a database etc…
+* Clone this repository: `git clone "https://github.com/Tafara-N/AirBnB_clone.git"`
+* Access AirBnb directory: `cd AirBnB_clone`
+* Run hbnb(interactively): `./console` and enter
+* Run hbnb(non-interactively): `echo "<command>" | ./console.py`
 
-- Do operations on objects (count, compute stats, etc…)
+## File Descriptions
 
-- Update attributes of an object
+[console.py](console.py) - the console contains the entry point of the command interpreter.
+List of commands this console current supports:
 
-- Destroy an object
+* `EOF` - exits console
+* `quit` - exits console
+* `<emptyline>` - overwrites default emptyline method and does nothing
+* `create` - Creates a new instance of`BaseModel`, saves it (to the JSON file) and prints the id
+* `destroy` - Deletes an instance based on the class name and id (save the change into the JSON file).
+* `show` - Prints the string representation of an instance based on the class name and id.
+* `all` - Prints all string representation of all instances based or not on the class name.
+* `update` - Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file).
 
-## Resources
+## `models/` directory contains classes used for this project
 
-**Read or watch:**
+[base_model.py](/models/base_model.py) - The BaseModel class from which future classes will be derived
 
-- [cmd module](https://intranet.alxswe.com/rltoken/8ecCwE6veBmm3Nppw4hz5A)
+* `def __init__(self, *args, **kwargs)` - Initialization of the base model
+* `def __str__(self)` - String representation of the BaseModel class
+* `def save(self)` - Updates the attribute `updated_at` with the current datetime
+* `def to_dict(self)` - returns a dictionary containing all keys/values of the instance
 
-- [cmd module in depth](https://intranet.alxswe.com/rltoken/uEy4RftSdKypoig9NFTvCg)
+Classes inherited from Base Model:
 
-- *packages concept page*
-  
-- [uuid module](https://intranet.alxswe.com/rltoken/KfL9TqwdI69W6ttG6gTPPQ)
+* [amenity.py](/models/amenity.py)
+* [city.py](/models/city.py)
+* [place.py](/models/place.py)
+* [review.py](/models/review.py)
+* [state.py](/models/state.py)
+* [user.py](/models/user.py)
 
-- [datetime](https://intranet.alxswe.com/rltoken/1d8I3jSKgnYAtA1IZfEDpA)
+## `/models/engine` directory contains File Storage class that handles JASON serialization and deserialization
 
-- [unittest module](https://intranet.alxswe.com/rltoken/IlFiMB8UmqBG2CxA0AD3jA)
+[file_storage.py](/models/engine/file_storage.py) - serializes instances to a JSON file & deserializes back to instances
 
-- [args/kwargs](https://intranet.alxswe.com/rltoken/C_a0EKbtvKdMcwIAuSIZng)
+* `def all(self)` - returns the dictionary __objects
+* `def new(self, obj)` - sets in __objects the obj with key <obj class name>.id
+* `def save(self)` - serializes __objects to the JSON file (path:__file_path)
+* `def reload(self)` - deserializes the JSON file to __objects
 
-- [Python test cheatsheet](https://intranet.alxswe.com/rltoken/tgNVrKKzlWgS4dfl3mQklw)
+## `/tests` directory contains all unit test cases for this project
 
-- [cmd module wiki page](https://intranet.alxswe.com/rltoken/EvcaH9uTLlauxuw03WnkOQ)
+[/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
+TestBaseModelDocs class:
 
-- [python unittest](https://intranet.alxswe.com/rltoken/begh14KQA-3ov29KvD_HvA)
+* `def setUpClass(cls)`- Set up for the doc tests
+* `def test_pep8_conformance_base_model(self)` - Test that models/base_model.py conforms to PEP8
+* `def test_pep8_conformance_test_base_model(self)` - Test that tests/test_models/test_base_model.py conforms to PEP8
+* `def test_bm_module_docstring(self)` - Test for the base_model.py module docstring
+* `def test_bm_class_docstring(self)` - Test for the BaseModel class docstring
+* `def test_bm_func_docstrings(self)` - Test for the presence of docstrings in BaseModel methods
 
-## Learning Objectives
+TestBaseModel class:
 
-At the end of this project, you are expected to be able to [explain to anyone](https://intranet.alxswe.com/rltoken/uV5eZkRZ_XEqYbgPd-0CWw), without the help of Google:
+* `def test_is_base_model(self)` - Test that the instatiation of a BaseModel works
+* `def test_created_at_instantiation(self)` - Test created_at is a pub. instance attribute of type datetime
+* `def test_updated_at_instantiation(self)` - Test updated_at is a pub. instance attribute of type datetime
+* `def test_diff_datetime_objs(self)` - Test that two BaseModel instances have different datetime objects
+
+[/test_models/test_amenity.py](/tests/test_models/test_amenity.py) - Contains the TestAmenityDocs class:
 
-### General
+* `def setUpClass(cls)` - Set up for the doc tests
+* `def test_pep8_conformance_amenity(self)` - Test that models/amenity.py conforms to PEP8
+* `def test_pep8_conformance_test_amenity(self)` - Test that tests/test_models/test_amenity.py conforms to PEP8
+* `def test_amenity_module_docstring(self)` - Test for the amenity.py module docstring
+* `def test_amenity_class_docstring(self)` - Test for the Amenity class docstring
 
-- How to create a Python package
+[/test_models/test_city.py](/tests/test_models/test_city.py) - Contains the TestCityDocs class:
 
-- How to create a command interpreter in Python using the cmd module
+* `def setUpClass(cls)` - Set up for the doc tests
+* `def test_pep8_conformance_city(self)` - Test that models/city.py conforms to PEP8
+* `def test_pep8_conformance_test_city(self)` - Test that tests/test_models/test_city.py conforms to PEP8
+* `def test_city_module_docstring(self)` - Test for the city.py module docstring
+* `def test_city_class_docstring(self)` - Test for the City class docstring
 
-- What is Unit testing and how to implement it in a large project
+[/test_models/test_file_storage.py](/tests/test_models/test_file_storage.py) - Contains the TestFileStorageDocs class:
 
-- How to serialize and deserialize a Class
+* `def setUpClass(cls)` - Set up for the doc tests
+* `def test_pep8_conformance_file_storage(self)` - Test that models/file_storage.py conforms to PEP8
+* `def test_pep8_conformance_test_file_storage(self)` - Test that tests/test_models/test_file_storage.py conforms to PEP8
+* `def test_file_storage_module_docstring(self)` - Test for the file_storage.py module docstring
+* `def test_file_storage_class_docstring(self)` - Test for the FileStorage class docstring
 
-- How to write and read a JSON file
+[/test_models/test_place.py](/tests/test_models/test_place.py) - Contains the TestPlaceDoc class:
 
-- How to manage datetime
+* `def setUpClass(cls)` - Set up for the doc tests
+* `def test_pep8_conformance_place(self)` - Test that models/place.py conforms to PEP8.
+* `def test_pep8_conformance_test_place(self)` - Test that tests/test_models/test_place.py conforms to PEP8.
+* `def test_place_module_docstring(self)` - Test for the place.py module docstring
+* `def test_place_class_docstring(self)` - Test for the Place class docstring
 
-- What is an UUID
+[/test_models/test_review.py](/tests/test_models/test_review.py) - Contains the TestReviewDocs class:
 
-- What is *args and how to use it
+* `def setUpClass(cls)` - Set up for the doc tests
+* `def test_pep8_conformance_review(self)` - Test that models/review.py conforms to PEP8
+* `def test_pep8_conformance_test_review(self)` - Test that tests/test_models/test_review.py conforms to PEP8
+* `def test_review_module_docstring(self)` - Test for the review.py module docstring
+* `def test_review_class_docstring(self)` - Test for the Review class docstring
 
-- What is **kwargs and how to use it
+[/test_models/state.py](/tests/test_models/test_state.py) - Contains the TestStateDocs class:
 
-- How to handle named arguments in a function
+* `def setUpClass(cls)` - Set up for the doc tests
+* `def test_pep8_conformance_state(self)` - Test that models/state.py conforms to PEP8
+* `def test_pep8_conformance_test_state(self)` - Test that tests/test_models/test_state.py conforms to PEP8
+* `def test_state_module_docstring(self)` - Test for the state.py module docstring
+* `def test_state_class_docstring(self)` - Test for the State class docstring
 
-## Requirements
+[/test_models/user.py](/tests/test_models/test_user.py) - Contains the TestUserDocs class:
 
-### Python Scripts
+* `def setUpClass(cls)` - Set up for the doc tests
+* `def test_pep8_conformance_user(self)` - Test that models/user.py conforms to PEP8
+* `def test_pep8_conformance_test_user(self)` - Test that tests/test_models/test_user.py conforms to PEP8
+* `def test_user_module_docstring(self)` - Test for the user.py module docstring
+* `def test_user_class_docstring(self)` - Test for the User class docstring
 
-- Allowed editors: *vi, vim, emacs*
+## Examples of use
 
-- All your files will be interpreted/compiled on Ubuntu 20.04 LTS using python3 (version 3.8.5)
+```python
+vagrantAirBnB_clone$./console.py
+(hbnb) help
 
-- All your files should end with a new line
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
 
-- The first line of all your files should be exactly *#!/usr/bin/python3*
+(hbnb) all MyModel
+** class doesn't exist **
+(hbnb) create BaseModel
+7da56403-cc45-4f1c-ad32-bfafeb2bb050
+(hbnb) all BaseModel
+[[BaseModel] (7da56403-cc45-4f1c-ad32-bfafeb2bb050) {'updated_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772167), 'id': '7da56403-cc45-4f1c-ad32-bfafeb2bb050', 'created_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772123)}]
+(hbnb) show BaseModel 7da56403-cc45-4f1c-ad32-bfafeb2bb050
+[BaseModel] (7da56403-cc45-4f1c-ad32-bfafeb2bb050) {'updated_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772167), 'id': '7da56403-cc45-4f1c-ad32-bfafeb2bb050', 'created_at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772123)}
+(hbnb) destroy BaseModel 7da56403-cc45-4f1c-ad32-bfafeb2bb050
+(hbnb) show BaseModel 7da56403-cc45-4f1c-ad32-bfafeb2bb050
+** no instance found **
+(hbnb) quit
+```
 
-- A *README.md* file, at the root of the folder of the project, is mandatory
+## API
 
-- Your code should use the pycodestyle (*version 2.8.*\*)
+This project have 6 entities, all HTTP methods are supported:
 
-- All your files must be executable
+* /amenities
+* /cities
+* /places
+* /reviews
+* /states
+* /users
 
-- The length of your files will be tested using *wc*
+**Note:** Resources have relations.
 
-- All your modules should have a documentation (*python3 -c 'print(\_\_import__("my_module").\_\_doc__)*')
+The available nested routes are:
 
-- All your classes should have a documentation (*python3 -c 'print(\_\_import__("my_module").MyClass.\_\_doc__)*')
+* /states/`<state_id>`/cities
+* /places/`<place_id>`/reviews
+* /cities/`<city_id>`/places
 
-- All your functions (inside and outside a class) should have a documentation (*python3 -c 'print(\_\_import__("my_module").my_function.\_\_doc__)*' and *python3 -c 'print(\_\_import__("my_module").MyClass.my_function.\_\_doc__)*')
+## Bugs
 
-- A documentation is not a simple word, it’s a real sentence explaining what’s the purpose of the module, class or method (the length of it will be verified)
+No known bugs at this time.
 
-### Python Unit Tests
+## Authors
 
-- Allowed editors: *vi, vim, emacs*
+* Tafara Nyamhunga - [Github](https://github.com/tafara-n)
 
-- All your files should end with a new line
+## License
 
-- All your test files should be inside a folder tests
-
-- You have to use the [unittest module](https://intranet.alxswe.com/rltoken/op1-rQGlw0wwwqNBsn1yaw)
-
-- All your test files should be python files (extension: .py)
-
-- All your test files and folders should start by *test_*
-
-- Your file organization in the tests folder should be the same as your project
-
-- e.g., For *models/base_model.py*, unit tests must be in: *tests/test_models/test_base_model.py*
-
-- e.g., For *models/user.py*, unit tests must be in: *tests/test_models/test_user.py*
-
-- All your tests should be executed by using this command: *python3 -m unittest discover tests*
-
-- You can also test file by file by using this command: *python3 -m unittest tests/test_models/test_base_model.py*
-
-- All your modules should have a documentation (*python3 -c 'print(\_\_import__("my_module").\_\_doc__)'*)
-
-- All your classes should have a documentation (*python3 -c 'print(\_\_import__("my_module").MyClass.\_\_doc__)*')
-
-- All your functions (inside and outside a class) should have a documentation (*python3 -c 'print(\_\_import__("my_module").my_function.\_\_doc__)*' and *python3 -c 'print(\_\_import__("my_module").MyClass.my_function.\_\_doc__)*')
-
-- We strongly encourage you to work together on test cases, so that you don’t miss any edge case
+Public Domain. No copy write protection.
