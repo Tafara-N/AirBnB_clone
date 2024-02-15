@@ -360,46 +360,46 @@ Add more information to a Place `article`:
 
 - Price by night:
     - tag: `div`
-    classname: `price_by_night`
-    same level as the place name
-    font color: #FF5A5F
-    border: #FF5A5F 4px rounded
-    min width: 60px
-    height: 60px
-    font size: 30px
-    align: the top right (with space)
+    - classname: `price_by_night`
+    - same level as the place name
+    - font color: #FF5A5F
+    - border: #FF5A5F 4px rounded
+    - min width: 60px
+    - height: 60px
+    - font size: 30px
+    - align: the top right (with space)
 - Information section:
-    tag: `div`
-    classname: `information`
-    height: 80px
-    border: top and bottom #DDDDDD 1px
-    contains (align vertically):
+    - tag: `div`
+    - classname: `information`
+    - height: 80px
+    - border: top and bottom #DDDDDD 1px
+    - contains (align vertically):
         - Number of guests:
-            tag: `div`
-            classname: `max_guest`
-            width: 100px
-            fake text
-            [icon]()
+            - tag: `div`
+            - classname: `max_guest`
+            - width: 100px
+            - fake text
+            - [icon](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_group.png)
         - Number of bedrooms:
-            tag: `div`
-            classname: `number_rooms`
-            width: 100px
-            fake text
-            [icon]()
+            - tag: `div`
+            - classname: `number_rooms`
+            - width: 100px
+            - fake text
+            - [icon](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_bed.png)
         - Number of bathrooms:
-            tag: `div`
-            classname: `number_bathrooms`
-            width: 100px
-            fake text
-            [icon]()
+            - tag: `div`
+            - classname: `number_bathrooms`
+            - width: 100px
+            - fake text
+            - [icon](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_bath.png)
 - User section:
-    tag: `div`
-    classname: `user`
-    text Owner: `<fake text>`
-    `Owner` text should be in bold
+    - tag: `div`
+    - classname: `user`
+    - text Owner: `<fake text>`
+    - `Owner` text should be in bold
 - Description section:
-    tag: `div`
-    classname: `description`
+    - tag: `div`
+    - classname: `description`
 Requirements:  
 - You must use: `header`, `footer`, `section`, `article`, `button`, `h1`, h2, h3, `h4`, `ul`, `li` tags
 - No inline style
@@ -407,11 +407,11 @@ Requirements:
 - You are not allowed to use the style `tag` in the `head` tag
 - All images must be stored in the `images` folder
 - You must have 5 CSS files:
-`styles/4-common.css`: for the global style (i.e. `body` and `.container` styles)
-`styles/3-header.css`: for the header style
-`styles/3-footer.css`: for the footer style
-`styles/6-filters.css`: for the filters style
-`styles/8-places.css`: for the places style
+    - `styles/4-common.css`: for the global style (i.e. `body` and `.container` styles)
+    - `styles/3-header.css`: for the header style
+    - `styles/3-footer.css`: for the footer style
+    - `styles/6-filters.css`: for the filters style
+    - `styles/8-places.css`: for the places style
 
 **Repo:**
 - GitHub repository: `AirBnB_clone`
